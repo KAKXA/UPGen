@@ -26,7 +26,8 @@ while True:
     d = input('Start with digits?(y/n)(default y)')
     if d == '': d = 'y'
     if d == 'y' or d == 'n': break
-while True:
+
+while t == 'p':
     s = input('Enter seed:')
     temp = SHA224.new()
     temp.update(s.encode())
