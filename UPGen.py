@@ -19,8 +19,9 @@ while True:
 k = input('Enter keyword:')
 
 while True:
-    w = input('With punctuations(y/n)(default y):')
-    if w == '': w = 'y'
+    w = input('With punctuations(y/n)(default y for p and default n for u and o):')
+    if w == '' and t == 'p': w = 'y'
+    elif w == '' and (t == 'u' or t == 'o'): w = 'n'
     if w == 'y' or w == 'n': break
 while True:
     d = input('Start with digits?(y/n)(default y)')
