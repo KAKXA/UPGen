@@ -3,16 +3,21 @@ from Base94 import Base94
 from Contains import contains
 
 while True:
-    l = input('Enter length(between 1 and 256)(default 16):')
-    if l == '': l = '16'
-    if l.isdecimal() and (1 <= int(l) <= 256):
-        l = int(l)
-        break
-k = input('Enter keyword:')
-while True:
     t = input('Enter type(username(u) or password(p) or others(o))(default p):')
     if t == '': t = 'p'
     if t == 'u' or t == 'p' or t == 'o': break
+
+while True:
+    l = input('Enter length(between 1 and 256)(default 16 for p and 8 for u and o):')
+    if l == '' and t == 'p': l = '16'
+    elif l == '' and (t == 'u' or t == 'o'): l = '8'
+
+    if l.isdecimal() and (1 <= int(l) <= 256):
+        l = int(l)
+        break
+
+k = input('Enter keyword:')
+
 while True:
     w = input('With punctuations(y/n)(default y):')
     if w == '': w = 'y'
@@ -29,11 +34,14 @@ while True:
         break
 
 m = k + t + s
+# if not a password, don't use seed to construct a result
+if t == 'u' or t == 'o':
+    m = k + t
 
 a = SHA512.new()
 a.update(s.encode())
 b = a.digest()
-res = Base94(b, withPunctuation= False if w == 'n' else True).decode()
+res = Base94(b, withPunctuation=False if w == 'n' else True).decode()
 
 
 for i in range(513 - l):
