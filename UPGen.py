@@ -8,9 +8,8 @@ while True:
     if t == 'u' or t == 'p' or t == 'o': break
 
 while True:
-    l = input('Enter length(between 1 and 256)(default 16 for p and 8 for u and o):')
-    if l == '' and t == 'p': l = '16'
-    elif l == '' and (t == 'u' or t == 'o'): l = '8'
+    l = input('Enter length(between 1 and 256)(default 16):')
+    if l == '': l = '16'
 
     if l.isdecimal() and (1 <= int(l) <= 256):
         l = int(l)
