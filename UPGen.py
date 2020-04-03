@@ -32,9 +32,10 @@ while t == 'p':
     temp = SHA224.new()
     temp.update(s.encode())
     if temp.hexdigest() == 'c94eb266a5f574ffb9fcd8b9bfd7d731c8add531c2b8d10413584be3':
+        global m = k + t + s
         break
 
-m = k + t + s
+
 # if not a password, don't use seed to construct a result
 if t == 'u' or t == 'o':
     m = k + t
