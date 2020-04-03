@@ -42,7 +42,7 @@ if t == 'u' or t == 'o':
     m = k + t
 
 a = SHA512.new()
-a.update(s.encode())
+a.update(m.encode())
 b = a.digest()
 res = Base94(b, withPunctuation=False if w == 'n' else True).decode()
 
