@@ -1,6 +1,8 @@
-from Crypto.Hash import SHA512, SHA224
+#! /bin/python3
+from Crypto.Hash import SHA512
 from Base94 import Base94
 from Contains import contains
+from StringSum import strSum
 
 while True:
     t = input('Enter type(username(u) or password(p) or others(o))(default p):')
@@ -29,9 +31,8 @@ while True:
 
 while t == 'p':
     s = input('Enter seed:')
-    temp = SHA224.new()
-    temp.update(s.encode())
-    if temp.hexdigest() == 'c94eb266a5f574ffb9fcd8b9bfd7d731c8add531c2b8d10413584be3':
+    # 仅仅通过对输入串求和来判断输入的正确性,这一步的目的是为了提供防止输入失误的功能而不是防止不知seed者进入下一步;仅仅给出输入串的异或和,提供的信息量很少,可以防止攻击
+    if strSum(s):
         global m
         m = k + t + s
         break
