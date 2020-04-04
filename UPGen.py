@@ -1,4 +1,6 @@
 #! /bin/python3
+from pyperclip import copy
+from getpass import getpass
 from Crypto.Hash import SHA512
 from Base94 import Base94
 from Contains import contains
@@ -30,10 +32,9 @@ while True:
     if d == 'y' or d == 'n': break
 
 while t == 'p':
-    s = input('Enter seed:')
+    s = getpass('Enter seed:')
     # 仅仅通过对输入串求和来判断输入的正确性,这一步的目的是为了提供防止输入失误的功能而不是防止不知seed者进入下一步;仅仅给出输入串的异或和,提供的信息量很少,可以防止攻击
     if strSum(s):
-        global m
         m = k + t + s
         break
 
@@ -50,5 +51,6 @@ res = Base94(b, withPunctuation=False if w == 'n' else True).decode()
 
 for i in range(513 - l):
     if contains(res[i: l + i], withPunctuation= False if w == 'n' else True, startWithDigit= False if d == 'n' else True):
-        print(res[i: l + i])
+        copy(res[i: l + i])
+        print('Already copy password to clipboard.')
         break
