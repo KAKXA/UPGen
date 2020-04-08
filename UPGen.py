@@ -36,6 +36,9 @@ else:
         w = inputR('With punctuations(y/n)', default='n', f=lambda x: x in {'y','n'})
         wp = False if w == 'n' else True
         m = k + t
+        v = inputR('Old version?(y/n)', default='n', f=lambda x: x in {'y','n'})
+        m = k + t if v == 'n' else k + 'u'
+        
 
 h = SHA512.new()
 h.update(m.encode())
