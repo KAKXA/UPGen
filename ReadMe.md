@@ -9,3 +9,5 @@ v1.5.0 refactor.new: generate a human name
 v1.5.1 add the support for old version(1.4.0)
 
 v1.5.2 add the flag bit
+
+v1.6.0 add symmetrical encryption and decryption

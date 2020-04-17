@@ -7,6 +7,9 @@ from Contains import contains
 from StringSum import strSum
 from Alias import alias
 from Crypto.Cipher import Blowfish
+import os
+import pickle
+
 
 def inputR(output, default=None, f=None, hide=False):
     newInput = getpass if hide else input
@@ -59,3 +62,50 @@ if mode == 'h':
         res = alias(int(h.hexdigest(),16))
     copy(res)
     print('Already copy it to clipboard.')
+elif mode == 'c':
+    if not os.path.exists('upgen.bin'):
+        print("First time to use mode cipher, new upgen.bin is established")
+        with open('upgen.bin', 'wb') as fp:
+            pass
+
+    eord = inputR('Which do you want(e for encry, d for decry)',default = None, f = lambda x: x in {'e','d'})
+    k = inputR('Enter keyword', default=None, f=None)
+    f = inputR('Enter flag(Enter an integer not less than 0', default='0', f=lambda x: x.isdecimal() and int(x) >= 0)
+    if f == '0':
+        f = ''
+    h = SHA512.new()
+    h.update((k + f).encode())
+    kf = h.hexdigest()
+
+    if eord == 'e':
+        with open('upgen.bin','rb') as fp:
+            dic = pickle.load(fp) if os.path.getsize('upgen.bin') > 0 else dict()
+            if kf in dic:
+                exit("The keyword and flag have already been used. Run me again to make a new one")
+
+
+        s = inputR('Enter seed',default=None,f=strSum, hide=True)
+        key = k + f + s
+        m = 8 * inputR('Enter message', default=None,f=lambda x: len(x) > 0)
+
+        kk = Blowfish.new(key)
+        cc = kk.encrypt(m)
+        dic[kf] = cc
+
+        with open('upgen.bin','wb') as fp:
+            pickle.dump(dic, fp)
+            print('Your message has been encrypted to file upgen.bin')
+    elif eord == 'd':
+        with open('upgen.bin','rb') as fp:
+            dic = pickle.load(fp) if os.path.getsize('upgen.bin') > 0 else dict()
+            if kf not in dic:
+                exit('The keyword and flag are not in the upgen.bin')
+            else:
+                s = inputR('Enter seed',default=None,f=strSum, hide=True)
+                key = k + f + s
+
+                kk = Blowfish.new(key)
+                cc = dic[kf]
+                p = kk.decrypt(cc).decode()
+                copy(p[0:len(p) // 8])
+                print('Already copy it to clipboard.')
