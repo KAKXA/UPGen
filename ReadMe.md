@@ -6,5 +6,6 @@ v1.4.2 hide input seed and output string.
 
 v1.5.0 refactor.new: generate a human name
 
-v1.5.1 add the support for old version(1.4.0), in the future i will use a tag bit manage different usernames of the same website
+v1.5.1 add the support for old version(1.4.0)
 
+v1.5.2 add the flag bit
