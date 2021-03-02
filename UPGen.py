@@ -88,8 +88,8 @@ elif mode == 'c':
         key = k + f + s
         m = 8 * inputR('Enter message', default=None,f=lambda x: len(x) > 0)
 
-        kk = Blowfish.new(key)
-        cc = kk.encrypt(m)
+        kk = Blowfish.new(key.encode(), Blowfish.MODE_CBC)
+        cc = kk.encrypt(m.encode())
         dic[kf] = cc
 
         with open('upgen.bin','wb') as fp:
@@ -104,7 +104,7 @@ elif mode == 'c':
                 s = inputR('Enter seed',default=None,f=strSum, hide=True)
                 key = k + f + s
 
-                kk = Blowfish.new(key)
+                kk = Blowfish.new(key.encode(), Blowfish.MODE_CBC)
                 cc = dic[kf]
                 p = kk.decrypt(cc).decode()
                 copy(p[0:len(p) // 8])
