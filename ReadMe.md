@@ -1,5 +1,12 @@
 # UPGen
 基于命令行的口令与用户名的生成与管理
+
+## 注意
+
+假如您因为各种各样的原因看到这个项目,请不要在意.该项目代码残缺,难以使用,基本只有我自己能用明白.
+
+没有完善功能的动机,因为口令管理有更好的替代品,比如我正在使用的 [Bitwarden](https://github.com/bitwarden) , 它**开源**,跨平台,免费,可以使用官方的云来存储,也可以**部署在自己的服务器**上,支持离线查询.
+
 ## 依赖 Dependencies
 - pip3 install pycrypto
 - pip3 install pyperclip
